@@ -179,13 +179,16 @@ int main() {
     bool is_int = (type_choice == "i");
     bool use_gpu = (mode_choice == "gpu");
 
+    if (!use_gpu) {
+        std::cout << "Enter number of threads: ";
+        std::cin >> num_threads;
+    }
+
     auto start = std::chrono::high_resolution_clock::now();
 
     if (use_gpu) {
         gpu_run(trials, array_size, is_int);
     } else {
-        std::cout << "Enter number of threads: ";
-        std::cin >> num_threads;
         if (is_int) {
             cpu_worker<int>(trials, array_size, num_threads);
         } else {
